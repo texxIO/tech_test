@@ -1,4 +1,5 @@
 defmodule Ukio.Apartments.Apartment do
+  alias Ukio.Apartments.Booking
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -8,7 +9,7 @@ defmodule Ukio.Apartments.Apartment do
     field :name, :string
     field :square_meters, :integer
     field :zip_code, :string
-
+    has_many :bookings, Booking
     timestamps()
   end
 

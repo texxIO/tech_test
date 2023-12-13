@@ -197,4 +197,23 @@ defmodule Ukio.Apartments do
   def change_booking(%Booking{} = booking, attrs \\ %{}) do
     Booking.changeset(booking, attrs)
   end
+
+  def check_availability(apartment_id, check_in, check_out) do
+    overlapping_bookings =
+      Repo.all(
+        from b in Ukio.Apartments.Booking,
+          where: b.apartment_id == ^apartment_id,
+          where: b.check_in < ^check_out and b.check_out > ^check_in
+      )
+
+    case overlapping_bookings do
+      [] ->
+        # No overlapping bookings for this apartment, so it's available
+        {:ok, true}
+
+      _ ->
+        # Overlapping bookings found, so it's not available
+        {:ok, false}
+    end
+  end
 end

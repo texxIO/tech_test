@@ -3,10 +3,13 @@ defmodule UkioWeb.BookingControllerTest do
 
   import Ukio.ApartmentsFixtures
 
+  valid_check_in_date = Date.add(Date.utc_today(), 1) |> Date.to_string()
+  valid_check_out_date = Date.add(Date.utc_today(), 2) |> Date.to_string()
+
   @create_attrs %{
     apartment_id: 42,
-    check_in: ~D[2023-03-26],
-    check_out: ~D[2023-03-26]
+    check_in: valid_check_in_date,
+    check_out: valid_check_out_date
   }
 
   @invalid_attrs %{
@@ -33,8 +36,8 @@ defmodule UkioWeb.BookingControllerTest do
 
       assert %{
                "id" => ^id,
-               "check_in" => "2023-03-26",
-               "check_out" => "2023-03-26",
+               "check_in" => valid_check_in_date,
+               "check_out" => valid_check_out_date,
                "deposit" => 100_000,
                "monthly_rent" => 250_000,
                "utilities" => 20000

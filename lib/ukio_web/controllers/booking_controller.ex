@@ -2,16 +2,25 @@ defmodule UkioWeb.BookingController do
   use UkioWeb, :controller
 
   alias Ukio.Apartments
-  alias Ukio.Apartments.Booking
+
   alias Ukio.Bookings.Handlers.BookingCreator
+
+  alias UkioWeb.ErrorJSON
 
   action_fallback UkioWeb.FallbackController
 
   def create(conn, %{"booking" => booking_params}) do
-    with {:ok, %Booking{} = booking} <- BookingCreator.create(booking_params) do
-      conn
-      |> put_status(:created)
-      |> render(:show, booking: booking)
+    case BookingCreator.create(booking_params) do
+      {:ok, booking} ->
+        conn
+        |> put_status(:created)
+        |> render("show.json", booking: booking)
+
+      {:error, status, reason} ->
+        conn
+        |> put_status(status)
+        |> put_view(ErrorJSON)
+        |> render("error.json", reason: reason)
     end
   end
 
