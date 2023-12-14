@@ -40,7 +40,7 @@ defmodule UkioWeb.BookingControllerTest do
                "check_out" => valid_check_out_date,
                "deposit" => 100_000,
                "monthly_rent" => 250_000,
-               "utilities" => 20000
+               "utilities" => 20000.0
              } = json_response(conn, 200)["data"]
     end
 

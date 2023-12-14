@@ -8,6 +8,9 @@ defmodule Ukio.Repo.Migrations.CreateApartments do
       add :zip_code, :string
       add :monthly_price, :integer
       add :square_meters, :integer
+      add :utility_rate, :float, default: 0.0
+      add :market_id, :integer, default: 1
+
 
       timestamps()
     end

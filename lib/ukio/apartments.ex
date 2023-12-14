@@ -102,7 +102,7 @@ defmodule Ukio.Apartments do
     Apartment.changeset(apartment, attrs)
   end
 
-  alias Ukio.Apartments.Booking
+  alias Ukio.Bookings.Booking
 
   @doc """
   Returns the list of bookings.
@@ -201,7 +201,7 @@ defmodule Ukio.Apartments do
   def check_availability(apartment_id, check_in, check_out) do
     overlapping_bookings =
       Repo.all(
-        from b in Ukio.Apartments.Booking,
+        from b in Ukio.Bookings.Booking,
           where: b.apartment_id == ^apartment_id,
           where: b.check_in < ^check_out and b.check_out > ^check_in
       )

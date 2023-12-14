@@ -8,7 +8,7 @@ defmodule Ukio.Repo.Migrations.CreateBookings do
       add :apartment_id, references(:apartments, on_delete: :delete_all), null: false
       add :monthly_rent, :integer
       add :deposit, :integer
-      add :utilities, :integer
+      add :utilities, :float
 
       timestamps()
     end

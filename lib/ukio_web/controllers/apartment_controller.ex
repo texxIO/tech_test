@@ -9,4 +9,9 @@ defmodule UkioWeb.ApartmentController do
     apartments = Apartments.list_apartments()
     render(conn, :index, apartments: apartments)
   end
+
+  def show(conn, %{"id" => id}) do
+    apartment = Apartments.get_apartment!(id)
+    render(conn, :show, apartment: apartment)
+  end
 end

@@ -1,5 +1,6 @@
 defmodule Ukio.Bookings.Handlers.BookingCreator do
   alias Ukio.Apartments
+  alias Ukio.Markets.MarketConditions
   require Logger
 
   def create(
@@ -36,19 +37,21 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
 
       exception ->
         Logger.error("An unexpected error occurred: #{exception.message}")
-        {:error, :unprocessable_entity, "An unexpected error occurred"}
+        {:error, :unprocessable_entity, "An unexpected error occurred #{exception}"}
     end
   end
 
   defp generate_booking_data(apartment, check_in, check_out) do
-    %{
+
+    market_conditions = MarketConditions.get_conditions(apartment)
+    booking_data = %{
       apartment_id: apartment.id,
       check_in: check_in,
       check_out: check_out,
-      monthly_rent: apartment.monthly_price,
-      utilities: 20_000,
-      deposit: 100_000
+      monthly_rent: apartment.monthly_price
     }
+
+    Map.merge(booking_data, market_conditions)
   end
 
   defp validate_availability(apartment_id, check_in, check_out) do

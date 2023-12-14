@@ -1,4 +1,4 @@
-defmodule Ukio.Apartments.Booking do
+defmodule Ukio.Bookings.Booking do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -11,11 +11,19 @@ defmodule Ukio.Apartments.Booking do
     field :check_out, :date
     field :deposit, :integer
     field :monthly_rent, :integer
-    field :utilities, :integer
+    field :utilities, :float
 
     timestamps()
   end
 
+  @spec changeset(
+          {map(), map()}
+          | %{
+              :__struct__ => atom() | %{:__changeset__ => map(), optional(any()) => any()},
+              optional(atom()) => any()
+            },
+          :invalid | %{optional(:__struct__) => none(), optional(atom() | binary()) => any()}
+        ) :: Ecto.Changeset.t()
   @doc false
   def changeset(booking, attrs) do
     booking

@@ -28,4 +28,9 @@ defmodule UkioWeb.BookingController do
     booking = Apartments.get_booking!(id)
     render(conn, :show, booking: booking)
   end
+
+  def index(conn, _params) do
+    bookings = Apartments.list_bookings()
+    render(conn, :index, bookings: bookings)
+  end
 end

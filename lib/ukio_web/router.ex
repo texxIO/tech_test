@@ -23,8 +23,9 @@ defmodule UkioWeb.Router do
   scope "/api", UkioWeb do
     pipe_through :api
 
-    get "/apartments", ApartmentController, :index
+    resources "/apartments", ApartmentController,[:index, :show]
     resources "/bookings", BookingController, [:show, :create]
+    resources "/markets", MarketController, [:show, :create]
   end
 
   # Other scopes may use custom stacks.

@@ -15,7 +15,9 @@ defmodule Ukio.ApartmentsFixtures do
         monthly_price: 250_000,
         name: "some name",
         square_meters: 42,
-        zip_code: "some zip_code"
+        zip_code: "some zip_code",
+        utility_rate: 0.0,
+        market_id: 1
       })
       |> Ukio.Apartments.create_apartment()
 

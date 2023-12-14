@@ -32,7 +32,8 @@ defmodule Ukio.ApartmentsTest do
         monthly_price: 42,
         name: "some name",
         square_meters: 42,
-        zip_code: "some zip_code"
+        zip_code: "some zip_code",
+        market_id: 1
       }
 
       assert {:ok, %Apartment{} = apartment} = Apartments.create_apartment(valid_attrs)
@@ -41,6 +42,7 @@ defmodule Ukio.ApartmentsTest do
       assert apartment.name == "some name"
       assert apartment.square_meters == 42
       assert apartment.zip_code == "some zip_code"
+      assert apartment.market_id == 1
     end
 
     test "create_apartment/1 with invalid data returns error changeset" do
@@ -55,7 +57,8 @@ defmodule Ukio.ApartmentsTest do
         monthly_price: 43,
         name: "some updated name",
         square_meters: 43,
-        zip_code: "some updated zip_code"
+        zip_code: "some updated zip_code",
+        market_id: 2
       }
 
       assert {:ok, %Apartment{} = apartment} =
@@ -66,6 +69,7 @@ defmodule Ukio.ApartmentsTest do
       assert apartment.name == "some updated name"
       assert apartment.square_meters == 43
       assert apartment.zip_code == "some updated zip_code"
+      assert apartment.market_id == 2
     end
 
     test "update_apartment/2 with invalid data returns error changeset" do
@@ -87,7 +91,7 @@ defmodule Ukio.ApartmentsTest do
   end
 
   describe "bookings" do
-    alias Ukio.Apartments.Booking
+    alias Ukio.Bookings.Booking
 
     import Ukio.ApartmentsFixtures
 
@@ -114,22 +118,26 @@ defmodule Ukio.ApartmentsTest do
     end
 
     test "create_booking/1 with valid data creates a booking", %{apartment: apartment} do
+
+    valid_check_in_date = Date.add(Date.utc_today(), 1)
+    valid_check_out_date = Date.add(Date.utc_today(), 2)
+
       valid_attrs = %{
         apartment_id: apartment.id,
-        check_in: ~D[2023-03-26],
-        check_out: ~D[2023-03-26],
+        check_in: valid_check_in_date,
+        check_out: valid_check_out_date,
         deposit: 100_000,
         monthly_rent: 250_000,
-        utilities: 20000
+        utilities: 20000.0
       }
 
       assert {:ok, %Booking{} = booking} = Apartments.create_booking(valid_attrs)
       assert booking.apartment_id == apartment.id
-      assert booking.check_in == ~D[2023-03-26]
-      assert booking.check_out == ~D[2023-03-26]
+      assert booking.check_in == valid_check_in_date
+      assert booking.check_out == valid_check_out_date
       assert booking.deposit == 100_000
       assert booking.monthly_rent == 250_000
-      assert booking.utilities == 20000
+      assert booking.utilities == 20000.0
     end
 
     test "create_booking/1 with invalid data returns error changeset" do
@@ -139,14 +147,16 @@ defmodule Ukio.ApartmentsTest do
     test "update_booking/2 with valid data updates the booking" do
       booking = booking_fixture()
 
+    valid_check_in_date = Date.add(Date.utc_today(), 1)
+    valid_check_out_date = Date.add(Date.utc_today(), 2)
       update_attrs = %{
-        check_in: ~D[2023-03-27],
-        check_out: ~D[2023-03-27]
+        check_in: valid_check_in_date,
+        check_out: valid_check_out_date
       }
 
       assert {:ok, %Booking{} = booking} = Apartments.update_booking(booking, update_attrs)
-      assert booking.check_in == ~D[2023-03-27]
-      assert booking.check_out == ~D[2023-03-27]
+      assert booking.check_in == valid_check_in_date
+      assert booking.check_out == valid_check_out_date
     end
 
     test "update_booking/2 with invalid data returns error changeset" do
