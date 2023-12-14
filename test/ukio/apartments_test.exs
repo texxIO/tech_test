@@ -118,9 +118,8 @@ defmodule Ukio.ApartmentsTest do
     end
 
     test "create_booking/1 with valid data creates a booking", %{apartment: apartment} do
-
-    valid_check_in_date = Date.add(Date.utc_today(), 1)
-    valid_check_out_date = Date.add(Date.utc_today(), 2)
+      valid_check_in_date = Date.add(Date.utc_today(), 1)
+      valid_check_out_date = Date.add(Date.utc_today(), 2)
 
       valid_attrs = %{
         apartment_id: apartment.id,
@@ -147,8 +146,9 @@ defmodule Ukio.ApartmentsTest do
     test "update_booking/2 with valid data updates the booking" do
       booking = booking_fixture()
 
-    valid_check_in_date = Date.add(Date.utc_today(), 1)
-    valid_check_out_date = Date.add(Date.utc_today(), 2)
+      valid_check_in_date = Date.add(Date.utc_today(), 1)
+      valid_check_out_date = Date.add(Date.utc_today(), 2)
+
       update_attrs = %{
         check_in: valid_check_in_date,
         check_out: valid_check_out_date

@@ -42,8 +42,8 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
   end
 
   defp generate_booking_data(apartment, check_in, check_out) do
-
     market_conditions = MarketConditions.get_conditions(apartment)
+
     booking_data = %{
       apartment_id: apartment.id,
       check_in: check_in,

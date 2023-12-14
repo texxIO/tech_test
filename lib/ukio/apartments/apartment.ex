@@ -19,7 +19,15 @@ defmodule Ukio.Apartments.Apartment do
   @doc false
   def changeset(apartment, attrs) do
     apartment
-    |> cast(attrs, [:name, :address, :zip_code, :monthly_price, :square_meters, :market_id, :utility_rate])
+    |> cast(attrs, [
+      :name,
+      :address,
+      :zip_code,
+      :monthly_price,
+      :square_meters,
+      :market_id,
+      :utility_rate
+    ])
     |> validate_required([:name, :address, :zip_code, :monthly_price, :square_meters, :market_id])
   end
 end

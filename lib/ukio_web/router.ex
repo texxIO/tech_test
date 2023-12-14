@@ -23,7 +23,7 @@ defmodule UkioWeb.Router do
   scope "/api", UkioWeb do
     pipe_through :api
 
-    resources "/apartments", ApartmentController,[:index, :show]
+    resources "/apartments", ApartmentController, [:index, :show]
     resources "/bookings", BookingController, [:show, :create]
     resources "/markets", MarketController, [:show, :create]
   end
